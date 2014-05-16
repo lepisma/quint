@@ -67,9 +67,9 @@ class quint:
 		q = np.array([])
 		
 		actions = self.reward_matrix[state]
-		for action in actions:
-			if action != self.not_allowed_state:
-				q.append(self.q_matrix[state, action])
+		for action_id in range(len(actions)):
+			if actions[action_id] != self.not_allowed_state:
+				q.append(self.q_matrix[state, action_id])
 		
 		return q.max()
 		
@@ -80,3 +80,20 @@ class quint:
 		
 		max_value = float(self.q_matrix.max())
 		self.q_matrix /= max_value
+		
+	def find_optimum_path(self, state):
+		"""
+		Returns the actions (and corresponding states) to follow to reach goal_state from given state
+		"""
+		
+		actions = []
+		states = [state]
+		
+		while state != goal_state:
+			action = np.where(self.q_matrix[state] == self.max_q(state))[0][0]
+			actions.append(action)
+			
+			state = self.act(state, action)
+			states.append(state)
+			
+		return actions, states
