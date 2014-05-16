@@ -72,3 +72,11 @@ class quint:
 				q.append(self.q_matrix[state, action])
 		
 		return q.max()
+		
+	def normalize(self):
+		"""
+		Normalizes the q values
+		"""
+		
+		max_value = float(self.q_matrix.max())
+		self.q_matrix /= max_value
