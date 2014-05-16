@@ -34,20 +34,25 @@ class quint:
 		"""
 		
 		for x in range(iterations):
-			initial_state = random.choice(self.reward_matrix.shape[0])
+			initial_state = random.choice(range(self.reward_matrix.shape[0]))
 			
 			while initial_state != goal_state:
 			# While we reach our goal
 				actions = self.reward_matrix[initial_state]
 				
 				initial_action = random.choice(actions)
+				
 				while initial_action == self.not_allowed_action:
 					initial_action = random.choice(actions)
+				
+				initial_action = np.where(actions == initial_action)[0][0]
 					
 				next_state = self.act(initial_state, initial_action)
 				
 				# update q matrix
 				self.q_matrix[initial_state, initial_action] = self.reward_matrix[initial_state, initial_action] + self.gamma * self.max_q(next_state)
+				
+				initial_state = next_state
 			
 	def act(self, current_state, action):
 		"""
@@ -64,14 +69,15 @@ class quint:
 		Returns the maximum q value available in the given state considering all action
 		"""
 		
-		q = np.array([])
+		max_q = 0
 		
 		actions = self.reward_matrix[state]
 		for action_id in range(len(actions)):
-			if actions[action_id] != self.not_allowed_state:
-				q.append(self.q_matrix[state, action_id])
+			if actions[action_id] != self.not_allowed_action:
+				if self.q_matrix[state, action_id] > max_q:
+					max_q = self.q_matrix[state, action_id]
 		
-		return q.max()
+		return max_q
 		
 	def normalize(self):
 		"""
