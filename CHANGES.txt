@@ -1,0 +1,6 @@
+quint Changelog
+--------------
+
+---------------- v 0.1 -------------------
+
+* Simple matrix q learning
