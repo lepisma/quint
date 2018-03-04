@@ -1,11 +1,11 @@
 quint
 -----
 
-.. image:: https://pypip.in/version/quint/badge.svg
+.. image:: https://img.shields.io/pypi/v/quint.svg
     :target: https://pypi.python.org/pypi/quint/
     :alt: Latest Version
 
-.. image:: https://pypip.in/license/quint/badge.svg
+.. image:: https://img.shields.io/pypi/l/quint.svg
     :target: https://pypi.python.org/pypi/quint/
     :alt: License
 
